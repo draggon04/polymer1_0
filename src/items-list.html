@@ -1,0 +1,102 @@
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="items-list">
+	<template>
+
+		<style>
+			div{
+				display: flex;
+				width: 25rem;
+				height: 3rem;
+			}
+
+			button{
+				height: 2.5rem;
+				width:  2.5rem;
+			}
+
+			button :hover{
+				background-color: blue;
+			}
+
+			.InStock{
+				background-color: green;
+			}
+
+			.NoStock{
+				background-color: red;
+			}
+
+
+		</style>
+
+		<h2>[[localize('TitleElementsList')]]</h2>
+
+		<table>
+			<thead>
+				<tr>
+					<th>[[localize('TableNameTitle')]]</th>
+					<th>[[localize('TableCountTitle')]]</th>
+				</tr>
+			</thead>
+			<tbody>
+				<template is="dom-repeat" items="[[items]]" as="item">
+					<tr class$="[[_getStyle(item.numItems)]]">
+						<td><p>[[item.name]]</p></td>
+						<td><p>[[item.numItems]]</p></td>
+						<td>
+							<button index="[[index]]" item="[[item]]" on-click="_addStock">+</button>
+							<button index="[[index]]" item="[[item]]" on-click="_removeStock">-</button>
+							<button index="[[index]]" item="[[item]]" on-click="_deleteItem">X</button>
+						</td>
+					</tr>
+				</template>				
+			</tbody>
+		</table>
+	</template>
+	<script>
+		(function principalViewDefine(principalView){		
+				'use strict'
+
+					Polymer({
+						is:`items-list`,
+						behaviors:[Polymer.AppLocalizeBehavior],
+						properties:{
+							items:{
+								type:Array,
+								value:[]
+							},
+							language:{
+								type:String,
+								value:'es',
+								observer:'_languagechanged'
+							}
+						},
+						_languagechanged:function(language){
+							this.loadResources(this.resolveUrl(`${language}.json`));
+						},
+						_deleteItem:function(){
+							this.splice('items', event.currentTarget.index,1);
+						},
+						_addStock:function(event){
+							event.currentTarget.item.numItems++;
+							this.notifyPath('items.'+event.currentTarget.index+'.numItems', event.currentTarget.item.numItems);	
+						},
+						_removeStock:function(event){
+							if(event.currentTarget.item.numItems >0){
+								event.currentTarget.item.numItems--;
+								this.notifyPath('items.'+event.currentTarget.index+'.numItems', event.currentTarget.item.numItems);
+							}
+						},
+						_getStyle:function(numItems){
+							if(numItems > 0)
+								return "InStock";
+							else
+								return "NoStock";
+						}
+					});
+			
+		})(window.principalView);
+	</script>
+</dom-module>

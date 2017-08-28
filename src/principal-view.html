@@ -1,0 +1,52 @@
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="items-list.html">
+<link rel="import" href="new-item.html">
+<link rel="import" href="select-language.html">
+<link rel="import" href="slogan-trademark.html">
+
+<dom-module id="principal-view">
+	<template>
+		<slogan-trademark>
+			<img class="logo1" src="imagen1" alt="">
+			<h1>Titulo Superior</h1>
+			<img class="logo2" src="imagen2" alt="">
+		</slogan-trademark>
+		<h1>[[localize('MainTitle')]]</h1>
+		<select-language on-select-language="_selectLanguage"></select-language>
+		<new-item language="[[language]]" on-add-item="_addItem"></new-item>
+		<items-list language="[[language]]" items="[[items]]"></items-list>
+	</template>
+	<script>
+		(function principalViewDefinition(principalView){
+			'use strict'
+
+			Polymer({
+				is:`principal-view`,
+				behaviors:[Polymer.AppLocalizeBehavior], //equivalente a mixins
+				properties:{
+					items:{
+						type:Array,
+						value:[{name:`item 1`,numItems:0}, {name:`item 2`, numItems:0}]
+					},
+					language:{
+						type:String,
+						value:'es',
+						observer:`_languageChanged`
+					}
+				},
+				_languageChanged:function(language){
+					this.loadResources(this.resolveUrl(`${language}.json`))
+				},
+				_selectLanguage:function(event){
+					this.language=event.detail.language;
+				},
+				_addItem:function(event){
+					this.push('items',{name:event.detail.name, numItems:0});
+				}
+			});
+	
+		})(window.principalView);
+	</script>
+</dom-module>

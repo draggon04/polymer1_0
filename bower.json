@@ -1,0 +1,8 @@
+{
+  "name": "polymer-1-0",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#1.9.1",
+    "app-localize-behavior": "PolymerElements/app-localize-behavior#^2.0.0"
+  }
+}

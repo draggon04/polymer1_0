@@ -1,0 +1,43 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module name="slogan-trademark">
+	<template>
+		<style>
+			.div1{
+				width: 100px;
+				height: 100px;
+				border:1px solid black;
+				display: inline-flex;
+			}
+			.div2{
+				width: 100px;
+				height: 100px;
+				border: 1px solid black;
+				display: inline-flex;
+			}
+
+			.divInner{
+				background-color: yellow;
+				display: inline-flex;
+			}
+
+		</style>
+		<div>
+			<div class="div1">
+				<content select=".logo1"></content>
+			</div>
+			<div class="divInner">
+				<content></content>		
+			</div>
+
+			<div class="div2">
+				<content select=".logo2"></content>
+			</div>
+		</div>
+	</template>
+	<script>
+		Polymer({
+			is:`slogan-trademark`
+		});
+	</script>
+</dom-module>

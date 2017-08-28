@@ -1,0 +1,43 @@
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="select-language">
+	<template>
+		<select id="languageSelect" on-change="_languageSelectChanged">
+			<option value="1">[[localize('OptionLanguageSpanish')]]</option>
+			<option value="2">[[localize('OptionLanguageEnglish')]]</option>
+		</select>
+	</template>
+	<script>
+		(function selectLanguageDefinition(selectLanguage){
+			'use strict'
+
+			Polymer({
+				is:`select-language`,
+				behaviors:[Polymer.AppLocalizeBehavior],
+				properties:{
+					language:{
+						type:String,
+						value:'es',
+						observer:'_languageChanged'
+					}
+				},
+				_languageChanged:function(language){
+					this.loadResources(this.resolveUrl(`${language}.json`))
+					this.fire(`select-language`,{language:language});
+				},
+				_languageSelectChanged:function(){
+					
+					if(languageSelect.value == "1")
+					{
+						this.language="es";
+					}
+					else{
+						this.language="en";
+					}
+				}
+			});
+
+		})(window.selectLanguage);
+	</script>
+</dom-module>

@@ -1,0 +1,34 @@
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="new-item">
+	<template>
+		<input id="newElement">
+		<button on-click="_buttonClicked">[[localize('btnAddText')]]</button>
+	</template>
+	<script>
+	(function newItemDefinition(newItem){
+		'use strict'
+
+		Polymer({
+			is:`new-item`,
+			properties:{
+				language:{
+					type:String,
+					value:'',
+					observer:'_languageChanged'
+				}
+			},
+			_languageChanged:function(language){
+				this.loadResources(this.resolveUrl(`${language}.json`));
+			},
+			behaviors:[Polymer.AppLocalizeBehavior],
+			_buttonClicked:function(event){
+				this.fire(`add-item`,{name:this.$.newElement.value});
+				this.$.newElement.value = ``;
+			}
+		});
+
+	})(window.newItem);
+	</script>
+</dom-module>
