@@ -1,6 +1,8 @@
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
+<link rel="import" href="item-detail.html">
+
 <dom-module id="items-list">
 	<template>
 
@@ -49,6 +51,7 @@
 							<button index="[[index]]" item="[[item]]" on-click="_addStock">+</button>
 							<button index="[[index]]" item="[[item]]" on-click="_removeStock">-</button>
 							<button index="[[index]]" item="[[item]]" on-click="_deleteItem">X</button>
+							<item-detail item="[[item]]"></item-detail>
 						</td>
 					</tr>
 				</template>				

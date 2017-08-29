@@ -1,0 +1,56 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="item-detail">
+	<template>
+		<style>
+			.detail-visible{
+				visibility: visible;
+			}
+
+			.detail-hidden{
+				visibility:collapse;
+			}
+		</style>	
+
+		<button on-click="_clickedView">&lt; 0 &gt;</button>
+		<div class$="[[_getVisibility(visibility)]]">
+			<p> <b>price: </b> [[item.price]]</p>
+			<p> <b>provider: </b> [[item.provider]]</p>		
+			<p> <b>provider-telephone: </b> [[item.providerTelephone]]</p>
+			<button on-click="_clickedClose">close</button>
+		</div>
+	</template>
+	<script>
+		(function itemDetailDefinition(itemDetail){
+			'use strict'
+
+			Polymer({
+				is:'item-detail',
+				properties:{
+					item:{
+						type:Object,
+						value:{}
+					},
+					visibility:{
+						type:Boolean,
+						value:false,
+						reflectToAttribute:true
+					}
+
+				},
+				_clickedClose:function(){
+					this.visibility=false;
+				},
+				_clickedView:function(visibility){
+
+					this.visibility=true;
+
+				},
+				_getVisibility:function(visibility){
+					return visibility?"detail-visible":"detail-hidden";
+				}
+			});
+
+		})(window.itemDetail);
+	</script>
+</dom-module>

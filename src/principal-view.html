@@ -28,7 +28,10 @@
 				properties:{
 					items:{
 						type:Array,
-						value:[{name:`item 1`,numItems:0}, {name:`item 2`, numItems:0}]
+						value:[
+							{name:`item 1`,numItems:0, price:55.33, provider:'provedor 1', providerTelephone:'555-5555-5555'}, 
+							{name:`item 2`, numItems:0, price:66.33, provider:'provedor 1', providerTelephone:'555-5555-5555'}
+						]
 					},
 					language:{
 						type:String,
@@ -43,7 +46,7 @@
 					this.language=event.detail.language;
 				},
 				_addItem:function(event){
-					this.push('items',{name:event.detail.name, numItems:0});
+					this.push('items',event.detail.itemToAdd);
 				}
 			});
 	

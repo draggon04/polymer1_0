@@ -3,7 +3,10 @@
 
 <dom-module id="new-item">
 	<template>
-		<input id="newElement">
+		<label for="newElement">Nomobre</label><input id="newElement">
+		<label for="newPrice">Precio</label><input id="newPrice">
+		<label for="newProvider">Proveedor</label><input id="newProvider">
+		<label for="newTelephone">Telefono del Proveedor</label><input id="newTelephone">
 		<button on-click="_buttonClicked">[[localize('btnAddText')]]</button>
 	</template>
 	<script>
@@ -24,8 +27,15 @@
 			},
 			behaviors:[Polymer.AppLocalizeBehavior],
 			_buttonClicked:function(event){
-				this.fire(`add-item`,{name:this.$.newElement.value});
+				this.fire(`add-item`,{itemToAdd:{name:this.$.newElement.value, 
+												price:this.$.newPrice.value,
+												provider:this.$.newProvider.value,
+												providerTelephone:this.$.newTelephone.value,
+												numItems:0}});
 				this.$.newElement.value = ``;
+				this.$.newPrice.value = ``;
+				this.$.newProvider.value = ``;
+				this.$.newTelephone.value = ``;
 			}
 		});
 
