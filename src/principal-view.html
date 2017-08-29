@@ -15,7 +15,8 @@
 		</slogan-trademark>
 		<h1>[[localize('MainTitle')]]</h1>
 		<select-language on-select-language="_selectLanguage"></select-language>
-		<new-item language="[[language]]" on-add-item="_addItem"></new-item>
+		<!--<new-item language="[[language]]" on-add-item="_addItem"></new-item>-->
+		<new-item language="[[language]]"></new-item>
 		<items-list language="[[language]]" items="[[items]]"></items-list>
 	</template>
 	<script>
@@ -38,6 +39,13 @@
 						value:'es',
 						observer:`_languageChanged`
 					}
+				},
+				attached:function(){
+					/*this.addEventListener('add-item', event=>{
+						this.push('items',event.detail.itemToAdd);
+					});*/
+
+					this.addEventListener('add-item', this._addItem);
 				},
 				_languageChanged:function(language){
 					this.loadResources(this.resolveUrl(`${language}.json`))
